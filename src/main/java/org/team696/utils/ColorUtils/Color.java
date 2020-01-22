@@ -132,4 +132,46 @@ public class Color {
     return result;
   }
 
+  public void fromHSV(double hue, double sat, double value){
+    double C = value * sat;
+    double Hprime = hue/(60./360.);
+    double X = C*(1.0-Math.abs(Hprime % 2 - 1));
+    double R1, G1, B1;
+    if(0 <= Hprime && Hprime <= 1){
+      R1 = C;
+      G1 = X; 
+      B1 = 0;
+    } else if(1 < Hprime && Hprime <= 2){
+      R1 = X;
+      G1 = C; 
+      B1 = 0;
+    } else if(2 < Hprime && Hprime <= 3){
+      R1 = 0;
+      G1 = C; 
+      B1 = X;
+    } else if(3 < Hprime && Hprime <= 4){
+      R1 = 0;
+      G1 = X; 
+      B1 = C;
+    } else if(4 < Hprime && Hprime <= 5){
+      R1 = X;
+      G1 = 0; 
+      B1 = C;
+    } else if(5 < Hprime && Hprime <= 6){
+      R1 = C;
+      G1 = 0; 
+      B1 = X;
+    } else{
+      //IDK
+      R1 = 0;
+      G1 = 0; 
+      B1 = 0;
+    }
+
+    double m = value - C;
+    this.red = R1 + m;
+    this.green = G1 + m;
+    this.blue = B1 + m;
+  }
+
 }
